@@ -2,7 +2,7 @@ import { TodosProType } from "../types";
 
 const Todos = ({ todos, handleDelete, handleEditClick }: TodosProType) => {
   return (
-    <div className="w-100">
+    <div className="w-100" data-testid="todosContainer">
       {todos?.map(({ text, id, createdAt }, i) => (
         <div key={i * Math.random()} className="space-around-childs">
           {text}
