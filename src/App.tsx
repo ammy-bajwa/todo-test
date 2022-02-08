@@ -18,12 +18,22 @@ function App() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
+    const updatedArr = todos.sort(function (a, b) {
+      return b.createdAt - a.createdAt;
+    });
+    localStorage.setItem("todos", JSON.stringify(updatedArr));
   }, [todos]);
 
   const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
     event?.preventDefault();
-    setTodos([...todos, { id: Math.random().toString(), text: todoText }]);
+    setTodos([
+      {
+        id: Math.random().toString(),
+        text: todoText,
+        createdAt: new Date().getTime(),
+      },
+      ...todos,
+    ]);
     setTodoText("");
   };
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +64,7 @@ function App() {
     setEditingItemId(id);
   };
   return (
-    <div>
+    <div className="center-childs">
       <TodoForm
         isEditing={isEditing}
         handleEdit={handleEdit}

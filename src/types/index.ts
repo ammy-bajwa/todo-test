@@ -3,6 +3,7 @@ import { ChangeEvent } from "react";
 export type TodoType = {
   text: string;
   id: string;
+  createdAt: number;
 };
 
 export type TodosProType = {

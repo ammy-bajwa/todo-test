@@ -1,0 +1,15 @@
+.space-around-childs {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+}
+
+.w-100 {
+  width: 100%;
+}
+.center-childs {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
