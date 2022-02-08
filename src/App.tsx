@@ -11,12 +11,15 @@ function App() {
   const [editingItemId, setEditingItemId] = useState("");
 
   useEffect(() => {
-    console.log("todos: ", todos);
-  }, [todos]);
+    const todos = localStorage.getItem("todos");
+    if (todos) {
+      setTodos(JSON.parse(todos));
+    }
+  }, []);
 
   useEffect(() => {
-    console.log("todoText: ", todoText);
-  }, [todoText]);
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
     event?.preventDefault();
