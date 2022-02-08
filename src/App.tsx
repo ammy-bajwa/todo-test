@@ -13,9 +13,11 @@ function App() {
   useEffect(() => {
     console.log("todos: ", todos);
   }, [todos]);
+
   useEffect(() => {
     console.log("todoText: ", todoText);
   }, [todoText]);
+
   const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
     event?.preventDefault();
     setTodos([...todos, { id: Math.random().toString(), text: todoText }]);
@@ -24,10 +26,22 @@ function App() {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTodoText(event?.target?.value);
   };
+
+  const handleDelete = (event: React.MouseEvent<HTMLElement>) => {};
+  const handleEdit = (event: React.MouseEvent<HTMLElement>) => {};
   return (
     <div>
       {todos?.map(({ text }, i) => (
-        <div key={i * Math.random()}>{text}</div>
+        <div key={i * Math.random()}>
+          {text}
+
+          <button type="button" onClick={handleDelete}>
+            Delete
+          </button>
+          <button type="button" onClick={handleEdit}>
+            Edit
+          </button>
+        </div>
       ))}
       <form onSubmit={handleSubmit}>
         <input
