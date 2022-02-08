@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-
-type TodoType = {
-  text: string;
-  id: string;
-};
+import Todos from "./components/Todos";
+import { TodoType } from "./types";
 
 function App() {
   const [todos, setTodos] = useState<TodoType[]>([]);
@@ -54,18 +51,11 @@ function App() {
   };
   return (
     <div>
-      {todos?.map(({ text, id }, i) => (
-        <div key={i * Math.random()}>
-          {text}
-
-          <button type="button" onClick={() => handleDelete(id)}>
-            Delete
-          </button>
-          <button type="button" onClick={() => handleEditClick(text, id)}>
-            Edit
-          </button>
-        </div>
-      ))}
+      <Todos
+        todos={todos}
+        handleDelete={handleDelete}
+        handleEditClick={handleEditClick}
+      />
       <form onSubmit={isEditing ? handleEdit : handleSubmit}>
         <input
           type="text"
