@@ -27,15 +27,18 @@ function App() {
     setTodoText(event?.target?.value);
   };
 
-  const handleDelete = (event: React.MouseEvent<HTMLElement>) => {};
+  const handleDelete = (id: string) => {
+    const updatedTodos = todos.filter(({ id: todoId }) => todoId !== id);
+    setTodos(updatedTodos);
+  };
   const handleEdit = (event: React.MouseEvent<HTMLElement>) => {};
   return (
     <div>
-      {todos?.map(({ text }, i) => (
+      {todos?.map(({ text, id }, i) => (
         <div key={i * Math.random()}>
           {text}
 
-          <button type="button" onClick={handleDelete}>
+          <button type="button" onClick={() => handleDelete(id)}>
             Delete
           </button>
           <button type="button" onClick={handleEdit}>
