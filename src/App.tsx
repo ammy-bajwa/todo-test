@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import TodoForm from "./components/TodoForm";
 import Todos from "./components/Todos";
 import { TodoType } from "./types";
 
@@ -51,21 +52,18 @@ function App() {
   };
   return (
     <div>
+      <TodoForm
+        isEditing={isEditing}
+        handleEdit={handleEdit}
+        handleSubmit={handleSubmit}
+        handleInputChange={handleInputChange}
+        todoText={todoText}
+      />
       <Todos
         todos={todos}
         handleDelete={handleDelete}
         handleEditClick={handleEditClick}
       />
-      <form onSubmit={isEditing ? handleEdit : handleSubmit}>
-        <input
-          type="text"
-          name="todoInput"
-          placeholder="Please add text here"
-          onChange={handleInputChange}
-          value={todoText}
-        />
-        <button type="submit">{isEditing ? "Update" : "Submit"}</button>
-      </form>
     </div>
   );
 }

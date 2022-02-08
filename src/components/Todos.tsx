@@ -1,4 +1,3 @@
-import React from "react";
 import { TodosProType } from "../types";
 
 const Todos = ({ todos, handleDelete, handleEditClick }: TodosProType) => {
