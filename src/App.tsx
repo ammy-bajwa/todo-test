@@ -9,6 +9,8 @@ type TodoType = {
 function App() {
   const [todos, setTodos] = useState<TodoType[]>([]);
   const [todoText, setTodoText] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingItemId, setEditingItemId] = useState("");
 
   useEffect(() => {
     console.log("todos: ", todos);
@@ -31,7 +33,25 @@ function App() {
     const updatedTodos = todos.filter(({ id: todoId }) => todoId !== id);
     setTodos(updatedTodos);
   };
-  const handleEdit = (event: React.MouseEvent<HTMLElement>) => {};
+  const handleEdit = (event: React.SyntheticEvent<HTMLFormElement>) => {
+    event?.preventDefault();
+    const updatedTodos = todos.map((todo) => {
+      if (todo?.id === editingItemId) {
+        todo.text = todoText;
+        return todo;
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
+    setTodoText("");
+    setIsEditing(false);
+    setEditingItemId("");
+  };
+  const handleEditClick = (text: string, id: string) => {
+    setIsEditing(true);
+    setTodoText(text);
+    setEditingItemId(id);
+  };
   return (
     <div>
       {todos?.map(({ text, id }, i) => (
@@ -41,19 +61,20 @@ function App() {
           <button type="button" onClick={() => handleDelete(id)}>
             Delete
           </button>
-          <button type="button" onClick={handleEdit}>
+          <button type="button" onClick={() => handleEditClick(text, id)}>
             Edit
           </button>
         </div>
       ))}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={isEditing ? handleEdit : handleSubmit}>
         <input
           type="text"
           name="todoInput"
+          placeholder="Please add text here"
           onChange={handleInputChange}
           value={todoText}
         />
-        <button type="submit">Submit</button>
+        <button type="submit">{isEditing ? "Update" : "Submit"}</button>
       </form>
     </div>
   );
